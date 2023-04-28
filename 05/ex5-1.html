@@ -15,12 +15,8 @@
             doSelect();
         }
 
-        function selectWord() {
-
-        }
-
         async function doSelect() {
-            var sql = 'select * from Tweets order by time desc limit 20';
+            var sql = 'select * from Tweets where tweet like "%{} %" ';
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
@@ -31,7 +27,6 @@
             }
             html = html + '</ul>';
             document.getElementById('result').innerHTML = html;
-            var x = document.getElementById('textbox').value;
         }
     </script>
 
