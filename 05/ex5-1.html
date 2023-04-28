@@ -16,6 +16,7 @@
         }
 
         async function doSelect() {
+            var testbox1 = document.getElementById('textbox').value;
             var sql = 'select * from Tweets where tweet like "%{} %" ';
             var objects = await osql.connect(sql);
             console.log(objects);
@@ -36,9 +37,9 @@
     <h1>ツイート</h1>
     <button onclick="button1Pressed()">X</button>
     <hr>
-    <input type="text" id="textbox" type="text">
+    <input type="text" id="textbox">
     <p>検索したい言葉を入力してください。 </p>
-    <button onclick="selectWord()"></button>
+    <button onclick="doSelect()">検索</button>
     <p id="result">xxxx</p>
 </body>
 
