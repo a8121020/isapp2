@@ -12,10 +12,24 @@
         osql.requireLogin();//すべてのページに入れる．google認証をして，osql.connect()や，osql.getMe()を使えるようにしてくれる．
 
         function button1Pressed() {
-            doSelect();
+            doSelect1();
         }
 
-        async function doSelect() {
+        async function doSelect1(){
+            var sql = `select * from Tweets order by time desc limit 20`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<ul>';
+                for(var i = 0; i < objects.length; i++){
+                    var object = objects[i];
+                    html = html + '<li>' + object.id + ',' + object.name + ',' + object.tweet + ',' + object.time + ',' + '</li>';
+                }
+                html = html + '</ul>';
+                document.getElementById('result').innerHTML = html;
+        }
+
+        async function doSelect2() {
             var textbox1 = document.getElementById('textbox').value;
             var sql = `select * from Tweets where tweet like "${textbox1}"`;
             var objects = await osql.connect(sql);
@@ -29,18 +43,38 @@
             html = html + '</ul>';
             document.getElementById('result').innerHTML = html;
         }
+
+        async function createTable(){
+            var sql = `select id, name from Tweets`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i=0; i <objects.length; i++){
+                var object = objects[i];
+                html = html + '<tr>';
+                html = html + '<td>' + object.id + '</td>';
+                html = html = '<td>' + object.name + '</td>';
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('table1').innerHTML = html;
+        }
     </script>
 
 </head>
 
 <body>
     <h1>ツイート</h1>
+    <p>ツイートを表示させる</p>
     <button onclick="button1Pressed()">X</button>
     <hr>
-    <input type="text" id="textbox">
     <p>検索したい言葉を入力してください。 </p>
-    <button onclick="doSelect()">検索</button>
+    <input type="text" id="textbox">
+    <button onclick="doSelect2()">検索</button>
     <p id="result">xxxx</p>
+    <button onclick="createTable()">表を作成</button>
+    <p id="table1">表が表示されます</p>
 </body>
 
 </html>
