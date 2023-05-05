@@ -16,8 +16,8 @@
         }
 
         async function doSelect() {
-            var testbox1 = document.getElementById('textbox').value;
-            var sql = 'select * from Tweets where tweet like "%${testbox1}%';
+            var textbox1 = document.getElementById('textbox').value;
+            var sql = `select * from Tweets where tweet like "${textbox1}"`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
