@@ -11,6 +11,10 @@
     <script>
         osql.requireLogin();//すべてのページに入れる．google認証をして，osql.connect()や，osql.getMe()を使えるようにしてくれる．
 
+        $().ready(function(){
+            DisplayTweets()
+        });
+
         function button1Pressed() {
             doInsert();
         }
@@ -53,8 +57,7 @@
     <button onclick="button1Pressed()">tweet</button>
     <br>
     <p id="result"></p>
-    <p id="tweets1">ツイートを表示させる</p>
-    <button onclick="DisplayTweets()">ツイートを表示させる</button>
+
     <p id="resultTweet">ここにツイートが表示されます</p>
 </body>
 
