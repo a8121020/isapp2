@@ -26,6 +26,20 @@
             document.getElementById('result').innerHTML = "tweetしました";
             document.getElementById('tf2').value= '';
         }
+
+        async function  DisplayTweets(){
+            var sql = `select * from Tweets order by time desc limit 20`;
+            var objects = await osql.connect(sql);
+            console.log(objects);
+            var html = '';
+            html = html + '<ul>'
+            for(var i=0; i<objects.length; i++){
+                var object = objects[i];
+                html = html + '<li>' + object.id + ',' + object.name + ',' + object.tweet +',' + object.time + '' + '</li>';
+            }
+            html = html + '</ul>';
+            document.getElementById('resultTweet').innerHTML = html;
+        }
     </script>
 
 </head>
@@ -39,6 +53,9 @@
     <button onclick="button1Pressed()">tweet</button>
     <br>
     <p id="result"></p>
+    <p id="tweets1">ツイートを表示させる</p>
+    <button onclick="DisplayTweets()">ツイートを表示させる</button>
+    <p id="resultTweet">ここにツイートが表示されます</p>
 </body>
 
 </html>
