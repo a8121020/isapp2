@@ -15,6 +15,7 @@
             execSelect();
         });
 
+
         async function execSelect() {
             var sql = 'select * from Users';
             var objects = await osql.connect(sql);
@@ -32,9 +33,13 @@
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
-        var UserId = document.getElementById('UserId').value;
-        var sql = `delete * from Users where id ="${UserId}"`;
 
+        async function buttonPressed() {
+            var UserId = document.getElementById('UserId').value;
+            var sql1 = `delete from Users where id = "${UserId}"`;
+            var objects = await osql.connect(sql1);
+            console.log(objects);
+        }
     </script>
 
 </head>
@@ -42,7 +47,7 @@
 <body>
     <h1>Users</h1>
     ID:<input type="text" id="UserId">
-    <button onclick="deleteUser()">削除</button>
+    <button onclick="buttonPressed()">削除</button>
     <p id="result">xxxx</p>
 </body>
 
