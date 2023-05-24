@@ -32,6 +32,9 @@
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
+        var UserId = document.getElementById('UserId').value;
+        var sql = `delete * from Users where id ="${UserId}"`;
+
     </script>
 
 </head>

@@ -16,9 +16,11 @@
         function init() {
             var name = osql.getParam('userid');
             document.getElementById('welcome').innerHTML = "ようこそ" + name + "さん";
-            sessionStorage.setItem('userid', name);
+            var name = sessionStorage.setItem('userid', name);
             var html = '<a href="update.html?userid=' + name + '"">ユーザー情報変更</a>'
             document.getElementById('MoveToUpdate').innerHTML = html;
+            var TweetHtml = '<a href = "TweetPage.html">ツイートページに移動する</a>'
+            document.getElementById('TweetPage').innerHTML = TweetHtml;
         }
 
     </script>
@@ -30,6 +32,7 @@
     <p id="welcome">ようこそxxさん</p>
     <hr>
     <p id="MoveToUpdate"></p>
+    <p id="TweetPage"></p>
 </body>
 
 </html>
