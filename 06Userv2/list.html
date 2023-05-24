@@ -28,26 +28,31 @@
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
+                html = html + '<td>' + '<button onclick="buttonPressed()">削除</button>'
+                html = html + '<td>' + '<button onclick="Follow()">フォローする</button>'
                 html = html + '</tr>';
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
 
-        async function buttonPressed() {
+        /*async function buttonPressed() {
             var UserId = document.getElementById('UserId').value;
             var sql1 = `delete from Users where id = "${UserId}"`;
             var objects = await osql.connect(sql1);
             console.log(objects);
         }
+        async function Follow(){
+         var sql = 'insert into Follows (fromid,toid)values()'
+        }
+        */
+
     </script>
 
 </head>
 
 <body>
     <h1>Users</h1>
-    ID:<input type="text" id="UserId">
-    <button onclick="buttonPressed()">削除</button>
     <p id="result">xxxx</p>
 </body>
 
