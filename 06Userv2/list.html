@@ -21,6 +21,10 @@
             var objects = await osql.connect(sql);
             var html = '';
             html = html + '<table border="1">';
+            html = html + '<tr>';
+            html = html + '<td>ユーザーid</td>'
+            html = html + '<td>ユーザー名</td>'
+            html = html + '</tr>'
             for (var i = 0; i < objects.length; i++) {
                 html = html + '<tr>';
                 var object = objects[i];
@@ -28,8 +32,8 @@
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
                 html = html + '<td>' + '<button id="delete ' + object.id + '"onclick="buttonPressed()">削除</button>' + '</td>';
-                sessionStorage.setItem('userid', object.id);
-                html = html + '<td>' + '<button id="Follow' + object.id + '"onclick"Follow()">フォローする</button>' + '</td>';
+                sessionStorage.setItem('user', object.id);//Followされる人
+                html = html + '<td>' + '<button id="Follow' + object.id + '"onclick = "Follow()">フォローする</button>' + '</td>';
                 html = html + '</tr>';
             }
             html = html + '</table>';
@@ -39,14 +43,22 @@
         async function buttonPressed() {
             var ans = window.confirm("本当にいいんですね？");
             if (ans == true) {
-                var userid = sessionStorage.getItem('userid');
-                var sql = `delete from Users where id = "${userid}"`;
+                var user = sessionStorage.getItem('user');
+                var sql = `delete from Users where id = "${user}"`;
                 var objects = await osql.connect(sql);
             }
         }
         async function Follow() {
-            var sql = 'insert into Follows (fromid,toid)values()';
-            var object = await osql.connect(sql);
+            var Follower = sessionStorage.getItem('userid');
+            var Followed = sessionStorage.getItem('user');
+            var ans = window.confirm("フォローしますか？");
+            if (Follower == Followed) {
+                document.getElementById("result-Follow").innerHTML = "自分をフォローしようとしています"
+            } else if (Follower != Followed && ans == true) {
+                var sql = `insert into Follows (fromid,toid) values("${Follower}", "${Followed}")`;
+                var object = await osql.connect(sql);
+                document.getElementById("result-Follow").innerHTML = "フォローしました！"
+            }
         }
 
 
@@ -57,6 +69,7 @@
 <body>
     <h1>Users</h1>
     <p id="result">xxxx</p>
+    <p id="result-Follow"></p>
 </body>
 
 </html>

@@ -14,13 +14,15 @@
             init();
         })
         function init() {
-            var name = osql.getParam('userid');
+            var name = sessionStorage.getItem('username');
             document.getElementById('welcome').innerHTML = "ようこそ" + name + "さん";
             var name = sessionStorage.setItem('userid', name);
             var html = '<a href="update.html?userid=' + name + '"">ユーザー情報変更</a>'
             document.getElementById('MoveToUpdate').innerHTML = html;
             var TweetHtml = '<a href = "TweetPage.html">ツイートページに移動する</a>'
             document.getElementById('TweetPage').innerHTML = TweetHtml;
+            var ListHtml = '<a href = "list.html">ユーザー一覧ページに移動する</a>'
+            document.getElementById('ListPage').innerHTML = ListHtml;
         }
 
     </script>
@@ -33,6 +35,7 @@
     <hr>
     <p id="MoveToUpdate"></p>
     <p id="TweetPage"></p>
+    <p id="ListPage"></p>
 </body>
 
 </html>
