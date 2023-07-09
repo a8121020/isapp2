@@ -19,6 +19,7 @@
         async function execSelect() {
             var sql = 'select * from Users';
             var objects = await osql.connect(sql);
+            //objectsは全ての値を持ってきた一つの建物
             var html = '';
             html = html + '<table border="1">';
             html = html + '<tr>';
@@ -27,30 +28,29 @@
             html = html + '</tr>'
             for (var i = 0; i < objects.length; i++) {
                 html = html + '<tr>';
-                var object = objects[i];
+                var object = objects[i];//objectは一つの行
                 html = html + '<td>' + object.id + '</td>';
                 html = html + '<td>' + object.name + '</td>';
                 html = html + '<td>' + '<a href="update.html?userid=' + object.id + '">変更</a>' + '</td>';
-                html = html + '<td>' + '<button id="delete ' + object.id + '"onclick="buttonPressed()">削除</button>' + '</td>';
-                sessionStorage.setItem('user', object.id);//Followされる人
-                html = html + '<td>' + '<button id="Follow' + object.id + '"onclick = "Follow()">フォローする</button>' + '</td>';
+                html = html + '<td>' + '<button onclick="buttonPressed(\'' + object.id + '\')">削除</button>' + '</td>';
+                //sessionStorage.setItem('user', object.id);//Followされる人←最後の人だけになる
+                html = html + '<td>' + '<button onclick="Follow(\'' + object.id + '\')">フォローする</button>' + '</td>';
                 html = html + '</tr>';
+                console.log(object);
             }
             html = html + '</table>';
             document.getElementById('result').innerHTML = html;
         }
 
-        async function buttonPressed() {
+        async function buttonPressed(userId) {
             var ans = window.confirm("本当にいいんですね？");
             if (ans == true) {
-                var user = sessionStorage.getItem('user');
-                var sql = `delete from Users where id = "${user}"`;
+                var sql = `delete from Users where id = "${userId}"`;
                 var objects = await osql.connect(sql);
             }
         }
-        async function Follow() {
+        async function Follow(Followed) {
             var Follower = sessionStorage.getItem('userid');
-            var Followed = sessionStorage.getItem('user');
             var ans = window.confirm("フォローしますか？");
             if (Follower == Followed) {
                 document.getElementById("result-Follow").innerHTML = "自分をフォローしようとしています"
