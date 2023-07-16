@@ -15,18 +15,18 @@
             doSelect1();
         }
 
-        async function doSelect1(){
+        async function doSelect1() {
             var sql = `select * from Tweets order by time desc limit 20`;
             var objects = await osql.connect(sql);
             console.log(objects);
             var html = '';
             html = html + '<ul>';
-                for(var i = 0; i < objects.length; i++){
-                    var object = objects[i];
-                    html = html + '<li>' + object.id + ',' + object.name + ',' + object.tweet + ',' + object.time + ',' + '</li>';
-                }
-                html = html + '</ul>';
-                document.getElementById('result').innerHTML = html;
+            for (var i = 0; i < objects.length; i++) {
+                var object = objects[i];
+                html = html + '<li>' + object.id + ',' + object.name + ',' + object.tweet + ',' + object.time + ',' + '</li>';
+            }
+            html = html + '</ul>';
+            document.getElementById('result').innerHTML = html;
         }
 
         async function doSelect2() {
@@ -44,18 +44,23 @@
             document.getElementById('result').innerHTML = html;
         }
 
-        async function createTable(){
-            var sql = `select id, name from Tweets`;
+        async function createTable() {
+            var sql = `select * from Tweets`;
             var objects = await osql.connect(sql);
-            console.log(objects);
+            //var list1 = [];
+
             var html = '';
             html = html + '<table border="1">';
-            for (var i=0; i <objects.length; i++){
+
+            for (var i = 0; i < objects.length; i++) {
                 var object = objects[i];
+                //list1.push(object);
                 html = html + '<tr>';
                 html = html + '<td>' + object.id + '</td>';
-                html = html = '<td>' + object.name + '</td>';
+                html = html + '<td>' + object.name + '</td>';
                 html = html + '</tr>';
+                console.log(object.id);
+                console.log(object.name);
             }
             html = html + '</table>';
             document.getElementById('table1').innerHTML = html;
