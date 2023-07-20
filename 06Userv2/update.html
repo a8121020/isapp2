@@ -19,6 +19,7 @@
             var userid = osql.getParam('userid');
             var sql = `select * from Users where id="${userid}";`;
             var objects = await osql.connect(sql);
+            console.log(objects);
             if (objects.length <= 0) {
                 document.getElementById('result').innerHTML = 'not found';
                 return;

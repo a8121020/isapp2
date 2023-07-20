@@ -14,9 +14,10 @@
             init();
         })
         function init() {
+            var id = sessionStorage.getItem('userid');
             var name = sessionStorage.getItem('username');
             document.getElementById('welcome').innerHTML = "ようこそ" + name + "さん";
-            var html = '<a href="update.html?userid=' + name + '"">ユーザー情報変更</a>'
+            var html = '<a href="update.html?userid=' + id + '"">ユーザー情報変更</a>'
             document.getElementById('MoveToUpdate').innerHTML = html;
             var TweetHtml = '<a href = "TweetPage.html">ツイートページに移動する</a>'
             document.getElementById('TweetPage').innerHTML = TweetHtml;
